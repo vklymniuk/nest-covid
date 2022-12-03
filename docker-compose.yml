@@ -1,0 +1,24 @@
+version: "3.8"
+
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+volumes:
+  mongo:
+    driver: ${VOLUMES_DRIVER}
+
+services:
+########################################## MongoDB ##########################################
+  mongo:
+    build:
+      context: ./mongo
+    ports:
+      - "${MONGODB_PORT}:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=username1
+      - MONGO_INITDB_ROOT_PASSWORD=password1
+    volumes:
+      - ./mongo/data:/data/db
+    networks:
+      - backend
